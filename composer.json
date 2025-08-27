@@ -1,0 +1,90 @@
+{
+    "name": "test-org/vulnerability-test-root",
+    "description": "Root composer.json for testing dependency confusion vulnerabilities",
+    "type": "project",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./packages/internal-lib"
+        },
+        {
+            "type": "path",
+            "url": "./services/user-service"
+        },
+        {
+            "type": "path",
+            "url": "./missing-path-critical"
+        },
+        {
+            "type": "path",
+            "url": "./nonexistent-lib-high"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nonexistent-org-critical/missing-repo-critical.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:missing-org-high/missing-package.git"
+        },
+        {
+            "type": "composer",
+            "url": "https://private-repo.example.com/composer/"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "laravel/framework": "^10.0",
+        "test-org/internal-lib": "dev-main",
+        "test-org/user-service": "^1.0",
+        "nonexistent-package-critical": "^2.0",
+        "missing-lib-high": "^1.5",
+        "symfony/console": "^6.0",
+        "doctrine/orm": "^2.14",
+        "fake-package-critical-vuln": "^3.0",
+        "missing-dependency-high": "dev-feature-branch",
+        "private-org/internal-tool": "^2.1",
+        "test-namespace/missing-component": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "laravel/telescope": "^4.0",
+        "missing-dev-package-high": "^1.0",
+        "fake-test-lib-critical": "dev-experimental",
+        "nonexistent-dev-tool": "^2.5",
+        "debug-lib-missing": "^1.2",
+        "test-helpers/missing-helper": "^3.0",
+        "development-only-missing": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "TestOrg\\": "src/",
+            "TestOrg\\InternalLib\\": "packages/internal-lib/src/",
+            "TestOrg\\UserService\\": "services/user-service/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TestOrg\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "post-install-cmd": [
+            "php artisan optimize"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    }
+}
